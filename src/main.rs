@@ -1,36 +1,62 @@
 
+#[derive(Debug)] //this helps to use trait
 
+//struct
 
-fn main(){
-   //array vs tuple
-   let array : [i32;4] = [1,2,3,4]; //same data types
-   let tuple: (i32, char, f64) = (1,'w',2.5); //different data types
+//creating a struct object
+struct Object {
+    width: u32,
+    height: u32
+}
 
-   println!("{}",tuple.1 ); //call it using index
-   println!("{}",array[0] ); //call it using method
-   //or use destructure method
+// //creating a function which will hold obj variable of Object
+// fn area(obj: &Object) -> u32{
+//     //to access struct
+//     obj.width * obj.height
+//     //return the multiplication of obj.width and obj.height
+// }
 
-   let (x,y,z) = tuple;
+impl Object {
+    //self means init to Object 
+    fn area(&self) -> u32{
+        self.height * self.width
+    }
 
-   println!("{}", x); //1
+    fn show(&self){
+       println!("{} * {} is {}",self.height,self.height ,self.area() );
+    }
 
-   println!("{} Is addition between tuple and array ",add(x,array[0]));
-   println!("{} is unusal addition of tuple and array",add2(x, array[1] as i64) ); //passing value to ffunction
-   //because  it accepts i64
+}
+
+//impl object for creating new object
+impl Object {
+    fn new(width: u32 , height: u32) -> Object {
+        Object{
+            width,
+            height,
+        }
+    }
 }
 
 
-//new function
-//return a+b
-//->means return 
-fn add(a:i32 , b:i32) -> i32{
-    a+b
+
+fn main() {
+    //defining value here
+    let object: Object = Object{
+        width:100,
+        height:100
+    };
+
+    let obj = Object::new(11, 102); //creating new object 
+
+    //printing the are
+    println!("The area of the object is {}", object.area()); //passing value to the area as a reference
+    println!("The area of the object is {}", obj.area()); //passing value to the area as a reference   
+    obj.show();
+    object.show();
+
+    println!("{:#?}", obj);
+    println!("{:#?}", object);
 }
 
-//new unusual function
-//now we have b as i64 but returning value is i32
-fn add2(a:i32, b:i64) -> i32{
-    a+ (b as i32) //so we change b to be i32
-    //b is set to (i32) because this function returns value as i32
-}
 
